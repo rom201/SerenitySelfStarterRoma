@@ -36,6 +36,7 @@ public class AdminCrudTest {
     @AfterAll
     public static void cleanUp(){
         SerenityRest.clear();
+        RestAssured.reset();
     }
 
 
@@ -51,7 +52,7 @@ public class AdminCrudTest {
                 .auth().basic("admin","admin")
                 .contentType(ContentType.JSON)
                 .body(payload).
-                when()
+          when()
                 .post("/spartans") ;
 
 

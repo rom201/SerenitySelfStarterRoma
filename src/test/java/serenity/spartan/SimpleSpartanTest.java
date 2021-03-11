@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import net.serenitybdd.junit5.SerenityTest;
 import net.serenitybdd.rest.Ensure;
+import net.serenitybdd.rest.SerenityRest;
 import org.junit.jupiter.api.*;
 import serenity.utility.SpartanUtil;
 
@@ -14,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 import static net.serenitybdd.rest.SerenityRest.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.*;
-
-
 
 
 @SerenityTest
@@ -29,7 +28,8 @@ public class SimpleSpartanTest {
 
     @AfterAll
     public static void cleanUp(){
-        reset();
+        SerenityRest.clear();
+        RestAssured.reset();
     }
 
     @DisplayName("Testing GET /api/hello Endpoint")
@@ -58,7 +58,7 @@ public class SimpleSpartanTest {
                 .andThat("I got Hello from Sparta" ,
                          vResponse -> vResponse.body( is("Hello from Sparta") ) )
                  .andThat("I got my response within 2 seconds",
-                                vResponse -> vResponse.time( lessThan(2L), TimeUnit.SECONDS  ) )
+                                vResponse -> vResponse.time( lessThan(5L), TimeUnit.SECONDS  ) )
 
                 ;
 
